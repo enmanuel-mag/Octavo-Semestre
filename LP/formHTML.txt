@@ -1,0 +1,18 @@
+<form> ::= <open_tag> <form_tag> <method> <close_tag> <input_tags> <nl> <open_tag> <slash> <form_tag> <close_tag>
+<input_tags> ::= <input_line>+ <nl> <i> <submit>
+<input_line> ::= <nl> <i> <open_tag> <input_tag> <id> " " <type> " " <class>? " " <value> " " <slash> <close_tag>
+<id> ::= "id='" <string> "'"
+<type> ::= "type='" ("text" | "email") "'"
+<class> ::= "class='" <string> "'"
+<value> ::= "value='" <string> "'"
+<string> ::= [a-z]+
+<submit> ::= <open_tag> <input_tag> <type_submit> " " <value> " " <slash> <close_tag>
+<type_submit> ::= "type='" "submit" "'"
+<method> ::= "method=" ("GET" | "POST" | "PUT" | "DELETE")
+<open_tag> ::= "<"
+<close_tag> ::= ">"
+<input_tag> ::= "input "
+<form_tag> ::= "form "
+<slash> ::= "/"
+<nl> ::= "\n"
+<i> ::= "\t"
