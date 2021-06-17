@@ -1,0 +1,21 @@
+<formulario> ::= <la> <form> <attform> <ra> <body> <submit> <n> <cform>
+<form> ::= "form"
+<i> ::= "\n\t"
+<n> ::= "\n"
+<cform> ::= "</form>"
+<tinput> ::= "input"
+<la> ::= "<"
+<ra> ::= ">"
+<eq> ::= "="
+<sc> ::= "'"
+<ep> ::= " "
+<ctinput> ::= "</input>"
+<method> ::= "method"
+<valueForm> ::= ("POST" | "GET" | "PATCH" | "DELETE" | "PUT")
+<attname> ::= ("type" | "class" | "value")
+<name> ::= [a-z] ([a-z] | [0-9])+
+<attform> ::= <ep> <method> <eq> <sc> <valueForm> <sc>
+<body> ::= <i> <input>
+<input> ::= <la> <tinput> <atributo> <ra> <ctinput> <i> <input> | " "
+<atributo> ::= <ep> <attname> <eq> <sc> <name> <sc> <atributo> | " "
+<submit> ::= <i> "<button type='submit'>Enviar</button>"

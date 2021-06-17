@@ -1,0 +1,27 @@
+<header> ::= <class> <space> <className> <lP> <rP> <p2> <body>
+<class> ::= "class"
+<def> ::= "def"
+<self> ::= "self"
+<lP> ::= "("
+<rP> ::= ")"
+<p2> ::= ":"
+<eq> ::= "="
+<sc> ::= "'"
+<dot> ::= "."
+<coma> ::= ","
+<space> ::= " "+
+<i> ::= "\n\t"
+<ii> ::= "\n\t\t"
+<init> ::= "__init__"
+<className> ::= [A-Z] ([a-z] | [A-Z] | [0-9])+
+<body> ::= <variable> <contruct> <function>
+<variable> ::= <i> <initVar> <variable> | " "
+<initVar> ::= <varName> <eq> <sc> <varName> <sc>
+<varName> ::= [a-z] ([a-z] | [0-9])+
+<contruct> ::= <sigInit> <bodyContruct>
+<sigInit> ::= <i> <def> <space> <init> <lP> <self> <parametro> <rP> <p2>
+<parametro> ::= <coma> <varName> <parametro> | " "
+<bodyContruct> ::= <ii> <self> <dot> <initVar> <bodyContruct> | " "
+<function> ::= <sigFunc> <bofuFunc>
+<sigFunc> ::= <i> <def> <space> <varName> <lP> <self> <parametro> <rP> <p2>
+<bofuFunc> ::= <variable>
