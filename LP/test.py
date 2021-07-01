@@ -68,3 +68,26 @@ while True:
     if not tok: 
         break      # No more input
     print(tok)
+
+
+inmode = 2
+            #in
+def in_mode(var):
+    print(var)
+    a = var * 5
+    print(a)
+
+def out_mode():
+    return 'pendejada'
+
+         # 0  #0    # 11  #array[0]
+def nombre(i, start, end, array):
+
+    for new_idx in range(start + 1, end):
+        print(array)
+        i = new_idx
+
+a = [1,2,3,4,5,6,7,8,9,9]
+i = 0
+
+nombre(i, 0, len(a), a[i])
