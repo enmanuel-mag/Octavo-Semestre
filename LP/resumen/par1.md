@@ -191,7 +191,9 @@ In the procedure, the index variable k and summation term ak are passed by name.
 
 For example, code to compute the sum of the first 100 terms of a real array V[] would be:
 
-```Sum(i, 1, 100, V[i])```
+```
+Sum(i, 1, 100, V[i])
+```
 
 
 ## Identificar los tipo de subrutinas existentes
@@ -203,3 +205,160 @@ Closures: A closure is a subroutine that refers to variables defined in an enclo
     Shallow Binding — if it uses bindings at time of call
 
 Subroutines as Arguments
+
+## Exercises
+
+### Escribir ER concisas, completas sin redundancia.
+
+```re
+^1+(1*01*0)*$ num par ceros
+
+^1+(01*01*)*0 num impar ceros
+
+(?!.*(test|enma))(?=\D*\d)(?=[^A-Z]*[A-Z])^.*$
+Requiere mayus, numero y no inclue test y enma
+
+(?=\D*\d)^([^A-Z]*[A-Z][^A-Z]*[A-Z][^A-Z]*)+$
+Contiene numero y pares de mayusculas
+```
+
+### Comprender un autómata (no graficarán pero deben responder que reconocería el mismo).
+	
+### Escribir reglas sintácticas usando BNF o EBNF
+
+```
+<sqlstg> ::= <select> <field> <from> <body>
+<select> ::= "SELECT "
+<from> ::= " FROM "
+<where> ::= " WHERE "
+<op> ::= " AND " | " OR "
+<comp> ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+<id> ::= ([A-Z] | [a-z]) ([A-Z] | [a-z] | [0-9])
+<field> ::= "* " | <id> | <moreid>
+<moreid> ::= <id> | <id> ", " <moreid>
+<body> ::= <id> | <id> <where> <wbody>
+<wbody> ::= <cond> | <cond> <op> <wbody>
+<lp> ::= "("
+<rp> ::= ")"
+<cond> ::= <id> <comp> <id> | <lp> <wbody> <rp>
+```
+
+### Implementar un analizador léxico, sintáctico usando PLY
+
+```python
+from typing import Tuple
+import ply.yacc as yacc
+import ply.lex as lex
+
+reserved = {
+  'select': 'SELECT',
+  'from': 'FROM',
+  'where': 'WHERE',
+  'and': 'AND',
+  'or': 'OR'
+}
+
+tokens = (
+  'ID',
+  'EQ',
+  'NE',
+  'GT',
+  'LT',
+  'AT',
+  'CM',
+  'LP',
+  'RP'
+) + tuple(reserved.values())
+
+t_EQ=R'\='
+t_NE=R'\!='
+t_GT=R'\>'
+t_LT=R'\<'
+t_AT=R'\*'
+t_CM=R'\,'
+t_LP=R'\('
+t_RP=R'\)'
+
+def t_ID(t):
+  R'\w+'
+  t.type = reserved.get(t.value, 'ID')
+  return t
+
+t_ignore = ' \t'
+
+def t_error(t):
+  print("Illegal character ", t)
+  t.lexer.skip(1)
+
+def t_newline(t):
+  r'\n+'
+  t.lexer.lineno += len(t.value)
+
+lexer = lex.lex()
+
+data = '''
+SELECT vP FROM fo WHERE (cP>rE OR BB=Vn AND (CR!=f9) AND K1!=qZ) AND (R7>=Ve)
+'''
+lexer.input(data)
+
+while True:
+  tok = lexer.token()
+  if not tok:
+    break
+  #print(tok)
+
+def p_sqlstg(p):
+  '''sqlstg : SELECT field FROM body
+  '''
+
+def p_field(p):
+  '''field : AT
+           | ID
+           | morefield 
+  '''
+
+def p_morefield(p):
+  '''morefield : ID 
+               | ID CM morefield
+  '''
+
+def p_body(p):
+  '''body : ID
+          | ID WHERE wbody
+  '''
+
+def p_wbody(p):
+  '''wbody : cond
+           | cond op wbody
+  '''
+
+def p_cond(p):
+  '''cond : ID comp ID
+          | LP wbody RP
+  '''
+
+def p_op(p):
+  '''op : AND
+        | OR
+  '''
+
+def p_comp(p):
+  '''comp : EQ
+          | NE
+          | GT
+          | LT
+  '''
+
+parser = yacc.yacc()
+
+while True:
+  try:
+    data = input('SQL>>> ')
+  except EOFError as e:
+    print(e)
+    break
+  if not data: continue
+  result = parser.parse(data)
+  print(result)
+
+```
