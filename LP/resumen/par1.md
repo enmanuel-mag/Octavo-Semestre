@@ -1,3 +1,4 @@
+
 ## Lenguaje de programacion
 Es un conjunto de simbolos y palabras (vob lexico) y conjunto de reglas sintacas y smeantics que permiten escribir un algoritmo. Algoritmo es una secuencia de instrucicon finitas.
 
@@ -226,7 +227,7 @@ Contiene numero y pares de mayusculas
 	
 ### Escribir reglas sintácticas usando BNF o EBNF
 
-```
+```html
 <sqlstg> ::= <select> <field> <from> <body>
 <select> ::= "SELECT "
 <from> ::= " FROM "
